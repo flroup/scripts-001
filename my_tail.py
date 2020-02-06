@@ -15,7 +15,7 @@ from os import  stat
 def calculate_start_position(filesize, number_of_strings):
     number_of_symbols = number_of_strings*255
     buffer = filesize -  number_of_symbols
-    return buffer if filesize > number_of_symbols else 0
+    return buffer if number_of_symbols < buffer < filesize  else 0
 
 #Read file from position and until the end
 def read_file(filename, position):
@@ -24,7 +24,7 @@ def read_file(filename, position):
         string_array = []
         for s in f:
             string_array.append(s)
-        return string_array, f.tell()
+        return string_array,  f.tell()
 
 
 if __name__ == '__main__':
@@ -40,18 +40,22 @@ if __name__ == '__main__':
         print("There is no such file")
 
     else:
+        print("My version of tail. Enjoy! For stop - press control + 'C'!")
         number_of_strings = -5
         start = calculate_start_position(filesize, number_of_strings)
 
         #Endless loop for checking and output the file modifications
         while True:
 
-            if stat(filename).st_size > start:
-                string_array, start = read_file(filename, start)
-                [print(s, end='') for s in string_array[number_of_strings:]]
-                number_of_strings = 0
+            try:
+                if stat(filename).st_size >= start:
+                    string_array, start = read_file(filename, start)
+                    [print(s, end='') for s in string_array[number_of_strings:]]
+                    number_of_strings = 0
 
-            elif stat(filename).st_size < start:
-                print("File size is reduced. Break.")
+                elif stat(filename).st_size < start:
+                    print("File size is reduced. Break.")
+                    break
+            except KeyboardInterrupt:
+                print("\n\nGood luck! Have a good day!")
                 break
-
