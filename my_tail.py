@@ -61,6 +61,7 @@ if __name__ == '__main__':
                 elif stat(filename).st_size < start:
                     print("File size is reduced. Break.")
                     break
+
             except KeyboardInterrupt:
                 print("\n\nGood luck! Have a good day!")
                 break
