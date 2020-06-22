@@ -2,11 +2,11 @@ from functools import wraps
 
 from datetime import datetime
 
-#Name of log file
+# Name of log file
 filename = 'logged-classes.log'
 
 
-#Base class for logging all calls of methods
+# Base class for logging all calls of methods
 class Logger:
 
     def _decorator(self, func):
@@ -52,15 +52,14 @@ class GrandChild(Child):
 
 if __name__ == "__main__":
 
-
     # Tests
 
-    #Creattion instances of Classes
+    # Creattion instances of Classes
     a = Child()
     b = Child2()
     c = GrandChild()
 
-    #Calls of methods of Classes
+    # Calls of methods of Classes
     a.test(5)
     b.test2(6)
     c.test3(7)
